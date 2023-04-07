@@ -5,6 +5,7 @@ import {
   TextMessage,
 } from "@line/bot-sdk";
 import * as dotenv from "dotenv";
+import { fetchData } from "../libs/devtoApi";
 
 dotenv.config();
 
@@ -24,10 +25,14 @@ export const handleEvent = async (
 
   const { replyToken } = event;
   const { text } = event.message;
-  // const { userId } = event.source;
 
-  await client.replyMessage(replyToken, {
-    type: 'text',
-    text: text
-  });
+  const data = await fetchData();
+  let textResponse: string = JSON.stringify(data);
+
+  const response: TextMessage = {
+    type: "text",
+    text: textResponse,
+  };
+
+  await client.replyMessage(replyToken, response);
 }
