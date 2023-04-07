@@ -5,7 +5,7 @@ import {
   TextMessage,
 } from "@line/bot-sdk";
 import * as dotenv from "dotenv";
-import { fetchData } from "../libs/devtoApi";
+import { fetchDataWithTag } from "../libs/devtoApi";
 import { ApiResponse } from "../types/apiResponse";
 
 dotenv.config();
@@ -27,15 +27,16 @@ export const handleEvent = async (
   const { replyToken } = event;
   const { text } = event.message;
 
-  const data: ApiResponse[] = await fetchData();
+  const data: ApiResponse[] = await fetchDataWithTag(text);
   let apiResponse: ApiResponse[] = data.map(val => ({
     title: val.title,
     description: val.description,
     url: val.url,
     tags: val.tags,
     readable_publish_date: val.readable_publish_date
-  }))
-  let textResponse: string = JSON.stringify(apiResponse);
+  }));
+
+  let textResponse: string = JSON.stringify(apiResponse, null, 4);
 
   const response: TextMessage = {
     type: "text",
