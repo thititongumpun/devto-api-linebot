@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 8080;
 app.use(morgan('dev'));
 app.use("/", routes);
 
-app.get('/', async (_, res) => {
+app.get('/', async (_: Request, res: Response) => {
   let data: ApiResponse[] = await fetchData();
   let response: ApiResponse[] = data.map(val => ({
     title: val.title,
