@@ -6,8 +6,9 @@ export const fetchData = async () => {
   return data;
 }
 
-export const fetchDataWithTag = async (tag: string) => {
-  const { data } = await axios.get(`https://dev.to/api/articles?page=1&per_page=10&tags=${tag}`);
+export const fetchDataWithTag = async (tag: string | undefined) => {
+  console.log(tag);
+  const { data } = await axios.get(`https://dev.to/api/articles?&page=1&per_page=10&tag=${tag}`);
   
   return data;
 }
