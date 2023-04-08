@@ -5,6 +5,7 @@ import {
   TextMessage,
   FlexBubble,
   FlexMessage,
+  FlexCarousel,
 } from "@line/bot-sdk";
 import * as dotenv from "dotenv";
 import { fetchData, fetchDataWithTag } from "../libs/devtoApi";
@@ -40,129 +41,193 @@ export const handleEvent = async (
   const data = await fetchData();
 
   let textResponse: string = JSON.stringify(data, null, 4);
-
   const response: TextMessage = {
     type: "text",
     text: textResponse,
   };
 
-  const flex: FlexMessage = {
-    altText: "bubble",
+  const flexRes: FlexMessage = {
     type: "flex",
+    altText: "..",
     contents: {
-      "type": "bubble",
-      "body": {
-        "type": "box",
-        "layout": "vertical",
-        "contents": [
-          {
-            "type": "box",
-            "layout": "horizontal",
-            "contents": [
-              {
-                "type": "image",
-                "url": "https://scdn.line-apps.com/n/channel_devcenter/img/flexsnapshot/clip/clip7.jpg",
-                "size": "5xl",
-                "aspectMode": "cover",
-                "aspectRatio": "150:196",
-                "gravity": "center",
-                "flex": 1
-              },
-              {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [
-                  {
-                    "type": "image",
-                    "url": "https://scdn.line-apps.com/n/channel_devcenter/img/flexsnapshot/clip/clip8.jpg",
-                    "size": "full",
-                    "aspectMode": "cover",
-                    "aspectRatio": "150:98",
-                    "gravity": "center"
-                  },
-                  {
-                    "type": "image",
-                    "url": "https://scdn.line-apps.com/n/channel_devcenter/img/flexsnapshot/clip/clip9.jpg",
-                    "size": "full",
-                    "aspectMode": "cover",
-                    "aspectRatio": "150:98",
-                    "gravity": "center"
-                  }
-                ],
-                "flex": 1
-              }
-            ]
+      "type": "carousel",
+      "contents": [
+        {
+          "type": "bubble",
+          "hero": {
+            "type": "image",
+            "size": "full",
+            "aspectRatio": "20:13",
+            "aspectMode": "cover",
+            "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/01_5_carousel.png"
           },
-          {
+          "body": {
             "type": "box",
-            "layout": "horizontal",
+            "layout": "vertical",
+            "spacing": "sm",
             "contents": [
               {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [
-                  {
-                    "type": "image",
-                    "url": "https://scdn.line-apps.com/n/channel_devcenter/img/flexsnapshot/clip/clip13.jpg",
-                    "aspectMode": "cover",
-                    "size": "full"
-                  }
-                ],
-                "cornerRadius": "100px",
-                "width": "72px",
-                "height": "72px"
+                "type": "text",
+                "text": "Arm Chair, White",
+                "wrap": true,
+                "weight": "bold",
+                "size": "xl"
               },
               {
                 "type": "box",
-                "layout": "vertical",
+                "layout": "baseline",
                 "contents": [
                   {
                     "type": "text",
-                    "contents": [
-                      {
-                        "type": "span",
-                        "text": "brown_05",
-                        "weight": "bold",
-                        "color": "#000000"
-                      },
-                      {
-                        "type": "span",
-                        "text": "     "
-                      },
-                      {
-                        "type": "span",
-                        "text": "I went to the Brown&Cony cafe in Tokyo and took a picture"
-                      }
-                    ],
-                    "size": "sm",
-                    "wrap": true
+                    "text": "$49",
+                    "wrap": true,
+                    "weight": "bold",
+                    "size": "xl",
+                    "flex": 0
                   },
                   {
-                    "type": "box",
-                    "layout": "baseline",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "1,140,753 Like",
-                        "size": "sm",
-                        "color": "#bcbcbc"
-                      }
-                    ],
-                    "spacing": "sm",
-                    "margin": "md"
+                    "type": "text",
+                    "text": ".99",
+                    "wrap": true,
+                    "weight": "bold",
+                    "size": "sm",
+                    "flex": 0
                   }
                 ]
               }
-            ],
-            "spacing": "xl",
-            "paddingAll": "20px"
+            ]
+          },
+          "footer": {
+            "type": "box",
+            "layout": "vertical",
+            "spacing": "sm",
+            "contents": [
+              {
+                "type": "button",
+                "style": "primary",
+                "action": {
+                  "type": "uri",
+                  "label": "Add to Cart",
+                  "uri": "https://linecorp.com"
+                }
+              },
+              {
+                "type": "button",
+                "action": {
+                  "type": "uri",
+                  "label": "Add to wishlist",
+                  "uri": "https://linecorp.com"
+                }
+              }
+            ]
           }
-        ],
-        "paddingAll": "0px"
-      }
+        },
+        {
+          "type": "bubble",
+          "hero": {
+            "type": "image",
+            "size": "full",
+            "aspectRatio": "20:13",
+            "aspectMode": "cover",
+            "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/01_6_carousel.png"
+          },
+          "body": {
+            "type": "box",
+            "layout": "vertical",
+            "spacing": "sm",
+            "contents": [
+              {
+                "type": "text",
+                "text": "Metal Desk Lamp",
+                "wrap": true,
+                "weight": "bold",
+                "size": "xl"
+              },
+              {
+                "type": "box",
+                "layout": "baseline",
+                "flex": 1,
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "$11",
+                    "wrap": true,
+                    "weight": "bold",
+                    "size": "xl",
+                    "flex": 0
+                  },
+                  {
+                    "type": "text",
+                    "text": ".99",
+                    "wrap": true,
+                    "weight": "bold",
+                    "size": "sm",
+                    "flex": 0
+                  }
+                ]
+              },
+              {
+                "type": "text",
+                "text": "Temporarily out of stock",
+                "wrap": true,
+                "size": "xxs",
+                "margin": "md",
+                "color": "#ff5551",
+                "flex": 0
+              }
+            ]
+          },
+          "footer": {
+            "type": "box",
+            "layout": "vertical",
+            "spacing": "sm",
+            "contents": [
+              {
+                "type": "button",
+                "flex": 2,
+                "style": "primary",
+                "color": "#aaaaaa",
+                "action": {
+                  "type": "uri",
+                  "label": "Add to Cart",
+                  "uri": "https://linecorp.com"
+                }
+              },
+              {
+                "type": "button",
+                "action": {
+                  "type": "uri",
+                  "label": "Add to wish list",
+                  "uri": "https://linecorp.com"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "bubble",
+          "body": {
+            "type": "box",
+            "layout": "vertical",
+            "spacing": "sm",
+            "contents": [
+              {
+                "type": "button",
+                "flex": 1,
+                "gravity": "center",
+                "action": {
+                  "type": "uri",
+                  "label": "See more",
+                  "uri": "https://linecorp.com"
+                }
+              }
+            ]
+          }
+        }
+      ]
     }
   }
 
   // await client.replyMessage(replyToken, response);
-  await client.replyMessage(replyToken, flex);
+  await client.replyMessage(replyToken, flexRes);
 }
