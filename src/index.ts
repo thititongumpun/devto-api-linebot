@@ -17,7 +17,8 @@ app.get('/', async (_: Request, res: Response) => {
     description: val.description,
     url: val.url,
     tags: val.tags,
-    readable_publish_date: val.readable_publish_date
+    readable_publish_date: val.readable_publish_date,
+    social_image: val.social_image
   }))
   res.json(response);
 })
@@ -30,7 +31,8 @@ app.get('/find', async (req: Request, res: Response) => {
     description: val.description,
     url: val.url,
     tags: val.tags,
-    readable_publish_date: val.readable_publish_date
+    readable_publish_date: val.readable_publish_date,
+    social_image: val.social_image
   }))
   res.json(response);
 })

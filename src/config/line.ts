@@ -2,10 +2,12 @@ import {
   Client,
   WebhookEvent,
   MessageAPIResponseBase,
-  TextMessage,
+  FlexBubble,
+  FlexMessage,
+  FlexCarousel,
 } from "@line/bot-sdk";
 import * as dotenv from "dotenv";
-import { fetchDataWithTag } from "../libs/devtoApi";
+import { fetchData, fetchDataPerPage, fetchDataWithTag } from "../libs/devtoApi";
 import { ApiResponse } from "../types/apiResponse";
 
 dotenv.config();
@@ -27,21 +29,96 @@ export const handleEvent = async (
   const { replyToken } = event;
   const { text } = event.message;
 
-  const data: ApiResponse[] = await fetchDataWithTag(text);
-  let apiResponse: ApiResponse[] = data.map(val => ({
+  const data: ApiResponse[] = await fetchData();
+  let response: ApiResponse[] = data.map(val => ({
     title: val.title,
     description: val.description,
     url: val.url,
     tags: val.tags,
-    readable_publish_date: val.readable_publish_date
-  }));
+    readable_publish_date: val.readable_publish_date,
+    social_image: val.social_image
+  }))
 
-  let textResponse: string = JSON.stringify(apiResponse, null, 4);
+  // if (text) {
+  //   const dataPerPage: ApiResponse[] = await fetchDataPerPage(text);
+  // }
 
-  const response: TextMessage = {
-    type: "text",
-    text: textResponse,
-  };
+  let flexBubbles: FlexBubble[] = [];
 
-  await client.replyMessage(replyToken, response);
+  for (let i = 0; i < response.length; i++) {
+    let bubbles: FlexBubble = {
+      type: "bubble",
+      hero: {
+        type: "image",
+        size: "full",
+        aspectRatio: "20:13",
+        aspectMode: "cover",
+        url: response[i].social_image
+      },
+      body: {
+        type: "box",
+        layout: "vertical",
+        spacing: "sm",
+        contents: [
+          {
+            type: "text",
+            text: response[i].title,
+            wrap: true,
+            weight: "bold",
+            size: "md"
+          },
+          {
+            type: "box",
+            layout: "baseline",
+            contents: [
+              {
+                type: "text",
+                text: response[i].tags,
+                wrap: true,
+                weight: "regular",
+                size: "xs",
+                flex: 0
+              },
+            ]
+          }
+        ]
+      },
+      footer: {
+        type: "box",
+        layout: "vertical",
+        spacing: "sm",
+        contents: [
+          {
+            type: "button",
+            style: "primary",
+            action: {
+              type: "uri",
+              label: "Link",
+              uri: response[i].url
+            }
+          },
+          {
+            type: "text",
+            text: response[i].readable_publish_date,
+            wrap: true,
+            weight: "bold",
+            size: "md",
+            align: "center"
+          },
+        ]
+      }
+    }
+    flexBubbles.push(bubbles);
+  }
+
+  const flexRes: FlexMessage = {
+    type: "flex",
+    altText: "..",
+    contents: {
+      type: "carousel",
+      contents: flexBubbles
+    }
+  }
+
+  await client.replyMessage(replyToken, flexRes);
 }

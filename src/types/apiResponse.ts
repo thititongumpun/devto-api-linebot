@@ -4,4 +4,5 @@ export interface ApiResponse {
   readable_publish_date:    string;
   url:                      string;
   tags:                     string;
+  social_image:             string;
 }
