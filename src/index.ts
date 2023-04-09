@@ -7,7 +7,7 @@ import { ApiResponse } from './types/apiResponse';
 const app: Express = express();
 const PORT = process.env.PORT || 8080;
 
-app.use(morgan('dev'));
+app.use(morgan('combined'));
 app.use("/", routes);
 
 app.get('/', async (_: Request, res: Response) => {

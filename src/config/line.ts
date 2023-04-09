@@ -29,7 +29,13 @@ export const handleEvent = async (
   const { replyToken } = event;
   const { text } = event.message;
 
-  const data: ApiResponse[] = await fetchData();
+  let data: ApiResponse[] = await fetchData();
+  
+  let regexNumber = /^\d+$/;
+  if (text.match(regexNumber)) {
+    data = await fetchDataPerPage(text);
+  }
+
   let response: ApiResponse[] = data.map(val => ({
     title: val.title,
     description: val.description,
@@ -38,10 +44,6 @@ export const handleEvent = async (
     readable_publish_date: val.readable_publish_date,
     social_image: val.social_image
   }))
-
-  // if (text) {
-  //   const dataPerPage: ApiResponse[] = await fetchDataPerPage(text);
-  // }
 
   let flexBubbles: FlexBubble[] = [];
 
