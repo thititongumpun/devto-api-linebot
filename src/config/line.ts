@@ -37,7 +37,7 @@ export const handleEvent = async (
   }
 
   if (text.startsWith("tags=")) {
-    data = await fetchDataWithTag(text);
+    data = await fetchDataWithTag(text.split('=').pop());
   }
 
   let response: ApiResponse[] = data.map(val => ({
