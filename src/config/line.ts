@@ -36,6 +36,10 @@ export const handleEvent = async (
     data = await fetchDataPerPage(text);
   }
 
+  if (text.startsWith("tags=")) {
+    data = await fetchDataWithTag(text);
+  }
+
   let response: ApiResponse[] = data.map(val => ({
     title: val.title,
     description: val.description,
