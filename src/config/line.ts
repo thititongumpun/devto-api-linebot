@@ -29,7 +29,7 @@ export const handleEvent = async (
   const { text } = event.message;
 
   let data: ApiResponse[] = await fetchData();
-  
+
   let regexNumber = /^\d+$/;
   if (text.match(regexNumber)) {
     data = await fetchDataPerPage(text);
@@ -50,7 +50,7 @@ export const handleEvent = async (
 
   let flexBubbles: FlexBubble[] = [];
 
-  for (let i = 0; i < response.length; i++) {
+  for (const content of response) {
     let bubbles: FlexBubble = {
       type: "bubble",
       hero: {
@@ -58,7 +58,7 @@ export const handleEvent = async (
         size: "full",
         aspectRatio: "20:13",
         aspectMode: "cover",
-        url: response[i].social_image
+        url: content.social_image
       },
       body: {
         type: "box",
@@ -67,7 +67,7 @@ export const handleEvent = async (
         contents: [
           {
             type: "text",
-            text: response[i].title,
+            text: content.title,
             wrap: true,
             weight: "bold",
             size: "md"
@@ -78,7 +78,7 @@ export const handleEvent = async (
             contents: [
               {
                 type: "text",
-                text: response[i].tags,
+                text: content.tags,
                 wrap: true,
                 weight: "regular",
                 size: "xs",
@@ -99,12 +99,12 @@ export const handleEvent = async (
             action: {
               type: "uri",
               label: "Link",
-              uri: response[i].url
+              uri: content.url
             }
           },
           {
             type: "text",
-            text: response[i].readable_publish_date,
+            text: content.readable_publish_date,
             wrap: true,
             weight: "bold",
             size: "md",
