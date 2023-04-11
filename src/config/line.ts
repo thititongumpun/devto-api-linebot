@@ -3,8 +3,7 @@ import {
   WebhookEvent,
   MessageAPIResponseBase,
   FlexBubble,
-  FlexMessage,
-  FlexCarousel,
+  FlexMessage
 } from "@line/bot-sdk";
 import * as dotenv from "dotenv";
 import { fetchData, fetchDataPerPage, fetchDataWithTag } from "../libs/devtoApi";
