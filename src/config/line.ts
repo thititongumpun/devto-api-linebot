@@ -118,7 +118,7 @@ export const handleEvent = async (
 
   const flexRes: FlexMessage = {
     type: "flex",
-    altText: "...",
+    altText: "....",
     contents: {
       type: "carousel",
       contents: flexBubbles
