@@ -1,8 +1,8 @@
 export interface ApiResponse {
-  title:                    string;
-  description:              string;
-  readable_publish_date:    string;
-  url:                      string;
-  tags:                     string;
-  social_image:             string;
+  title: string;
+  description: string;
+  readable_publish_date: string;
+  url: string;
+  tags: string;
+  social_image: string;
 }
